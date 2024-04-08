@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HTTP request for Starlight for Starlark-go</title>
+    <script type="text/javascript" src="wasm_exec.js"></script>
+</head>
+<body>
+<h2>HTTP Request from inside WASM using Starlark and Starlight library</h2>
+
+<p>This example uses <a href="https://github.com/starlight-go/starlight">Starlight</a> for Starlark in Go.</p>
+<p>See the output in browser developer console.</p>
+
+<p>Actual code:</p>
+<pre>
+
+print(httpget('https://httpbin.org/anything'))
+
+</pre>
+<script type="text/javascript">
+    const go = new Go();
+    WebAssembly.instantiateStreaming(fetch('main.wasm'), go.importObject).then((result) => {
+        go.run(result.instance);
+    });
+</script>
+<section>
+    <h4>Info</h4>
+    <ul>
+        <li><a href="https://github.com/wasm-outbound-http-examples/starlark-in-go/tree/main/browser-and-deno-starlight/">Demo source code</a></li>
+        <li>Versions used on the moment of build:<small>
+            Golang: 1.22.1,
+            starlark-go: <a href="https://github.com/google/starlark-go/tree/ee8ed142361c">v0.0.0-20240314022150-ee8ed142361c</a>,
+            Starlight: <a href="https://github.com/starlight-go/starlight/tree/b06f321544f32fa1ece751522f04f6629b15c3b6">v0.0.0-20181207205707-b06f321544f3</a>.
+        </small></li>
+    </ul>
+</section>
+<footer><small>Created for (wannabe-awesome) <a href="https://github.com/vasilev/HTTP-request-from-inside-WASM">list</a></small></footer>
+</body>
+</html>
