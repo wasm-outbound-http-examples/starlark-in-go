@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HTTP request for starlark-go-nethttp for Starlark-go</title>
+    <script type="text/javascript" src="wasm_exec.js"></script>
+</head>
+<body>
+<h2>HTTP Request from inside WASM using Starlark and pcj/starlark-go-nethttp library</h2>
+
+<p>This example uses <a href="https://github.com/pcj/starlark-go-nethttp">starlark-go-nethttp</a> for Starlark in Go.</p>
+<p>See the output in browser developer console.</p>
+
+<p>Actual code:</p>
+<pre>
+
+resp = http.get('https://httpbin.org/anything')
+print(resp.body)
+
+</pre>
+<script type="text/javascript">
+    const go = new Go();
+    WebAssembly.instantiateStreaming(fetch('main.wasm'), go.importObject).then((result) => {
+        go.run(result.instance);
+    });
+</script>
+<section>
+    <h4>Info</h4>
+    <ul>
+        <li><a href="https://github.com/wasm-outbound-http-examples/starlark-in-go/blob/main/browser-and-deno-nethttp/">Demo source code</a></li>
+        <li>Versions used on the moment of build:<small>
+            Golang: 1.22.4,
+            starlark-go: <a href="https://github.com/google/starlark-go/tree/046347dcd104">v0.0.0-20240520160348-046347dcd104</a>,
+            pcj/starlark-go-nethttp: <a href="https://github.com/pcj/starlark-go-nethttp/tree/4f030cb7e2df93d73297c4cdbf7c7fdbfc6290d7">v0.0.0-20181206163746-4f030cb7e2df</a>.
+        </small></li>
+    </ul>
+</section>
+<footer><small>Created for (wannabe-awesome) <a href="https://github.com/vasilev/HTTP-request-from-inside-WASM">list</a></small></footer>
+</body>
+</html>
